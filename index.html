@@ -2,10 +2,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="FIGAROH: a Python toolbox for dynamic identification and geometric calibration of robots and humans">
-  <meta name="keywords" content="geometric calibration, dynamic identification, robots, humans, Python toolbox">
+  <meta name="description" content="Improving Operational Accuracy of a Mobile Manipulator by Modeling Geometric and Non-Geometric Parameters">
+  <meta name="keywords" content="mobile manipulator, geometric calibration, suspension modeling, backlash compensation, robot accuracy, TIAGo">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>tiago-calibration</title>
+  <title>Improving Operational Accuracy of a Mobile Manipulator by Modeling Geometric and Non-Geometric Parameters</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -69,15 +69,15 @@
           <!-- <a class="navbar-item" href="https://hypernerf.github.io">
             HyperNeRF
           </a> -->
-          <a class="navbar-item" href="https://thanhndv212.github.io/tiago-calibration-webpage">
-            Figaroh
+          <a class="navbar-item" href="https://thanhndv212.github.io/figaroh-plus-webpage/">
+            Figaroh - Robotic SysID toolbox
           </a>
-          <!-- <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
+          <a class="navbar-item" href="https://thanhndv212.github.io/tiago-calibration-webpage/">
+            Tiago - Mobile Manipulator Calibration
           </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a> -->
+          <a class="navbar-item" href="https://thanhndv212.github.io/talos-calibration-webpage/">
+            TALOS - Humanoid Calibration
+          </a>
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">FIGAROH: a Python toolbox for dynamic identification and geometric calibration of robots and humans</h1>
+          <h1 class="title is-1 publication-title">Improving Operational Accuracy of a Mobile Manipulator by Modeling Geometric and Non-Geometric Parameters</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">Thanh D. V. Nguyen<sup>1,2</sup>,</span>
             <span class="author-block">Vincent Bonnet<sup>1,3</sup>,</span>
@@ -100,7 +100,7 @@
             <span class="author-block">Florent Lamiraux<sup>1</sup></span>
           </div>
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>LAAS-CNRS, Université Paul Sabatier, CNRS, Toulouse, France</span>
+            <span class="author-block"><sup>1</sup>LAAS-CNRS, CNRS, Université Paul Sabatier, Toulouse, France</span>
             <span class="author-block"><sup>2</sup>TOWARD S.A.S, Toulouse, France</span>
             <span class="author-block"><sup>3</sup>IPAL, CNRS-UMI, Singapore</span>
           </div>
@@ -137,9 +137,65 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            The accuracy of the geometric and dynamic models for robots and humans is crucial for simulation, control, and motion analysis. For example, joint torque, which is a function of geometric and dynamic parameters, is a critical variable that heavily impacts the performance of model-based control, or that can motivate a clinical decision after a biomechanical analysis. Fortunately, these models can be identified using extensive works from literature. However, for a non-expert, building an identification model and designing an experimentation plan, which should not require long hours and/or lead to poor results, is not a trivial task, especially for anthropometric structures such as humanoids or humans that need frequent update. In this work, we propose a unified framework for geometric calibration and dynamic identification in the form of a Python open-source toolbox. Besides identification model building and data processing, the toolbox can automatically generate exciting postures and motions to minimize the experimental burden from the robot, measurements, and environment description. The possibilities of this toolbox are exemplified with several datasets of human, humanoid, and serial robots. 
+            This paper addresses two intrinsic phenomena encountered in mobile manipulator robots, but often neglected, with the objective of improving the overall accuracy of end-effector pose estimation. Firstly, after performing state-of-the-art geometric calibration of the arm, we propose two identifiable mathematical models to account for non-geometric effects: a model for the mobile base suspension system and a model of non-linear inaccuracies of joint angles estimates. The latter is due to backlash and misaligned encoders mounting. Then, the proposed models were experimentally validated on the mobile manipulator TIAGo using a stereophotogrammetric system. Overall, the end-effector pose accuracy was improved by 60% when compared to the nominal manufacturer model, with root mean square errors (RMSE) of 5.7mm and 2.7deg for positional and orientational errors, respectively.
           </p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Key Contributions</h2>
+        <div class="content has-text-justified">
+          <p>This paper addresses two intrinsic phenomena in mobile manipulator robots that are often neglected but significantly impact operational accuracy: base suspension dynamics and non-geometric joint transmission effects.</p>
+
+          <h4>1. Suspension Model for Mobile Base</h4>
+          <p>Models each wheel as a linear and torsional spring-damper system to account for base flexibility during arm movements. The 6D spatial suspension model captures how external wrenches cause base displacement, affecting end-effector positioning accuracy.</p>
+
+          <h4>2. Non-Geometric Joint Phenomena Model</h4>
+          <p>Addresses backlash in mechanical transmissions, joint flexibility, and encoder mounting misalignments using a combination of sigmoid functions (for hysteresis behavior) and multivariate polynomials (for configuration-dependent effects).</p>
+
+          <h4>3. Integrated Framework with Geometric Calibration</h4>
+          <p>Combines the proposed models with state-of-the-art geometric calibration using the FIGAROH toolbox, providing a comprehensive approach to mobile manipulator accuracy improvement.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experimental Results</h2>
+        <div class="content has-text-justified">
+          <p>Experiments were conducted on the TIAGo mobile manipulator using stereophotogrammetric motion capture and force plate measurements. Four models were compared:</p>
+
+          <ul>
+            <li><strong>Nominal Model</strong>: Manufacturer's default geometric parameters</li>
+            <li><strong>Model 1</strong>: Nominal model + suspension compensation</li>
+            <li><strong>Model 2</strong>: Model 1 + geometric calibration</li>
+            <li><strong>Model 3</strong>: Model 2 + non-geometric joint phenomena compensation</li>
+          </ul>
+
+          <h4>Accuracy Improvements</h4>
+          <p>The integrated approach achieved significant improvements in end-effector pose estimation:</p>
+
+          <ul>
+            <li><strong>Position Accuracy</strong>: RMSE reduced from 13.3mm to 5.7mm (57% improvement)</li>
+            <li><strong>Orientation Accuracy</strong>: RMSE reduced from 8.57° to 2.71° (68% improvement)</li>
+          </ul>
+
+          <p>These results demonstrate the importance of accounting for both geometric and non-geometric phenomena in mobile manipulator modeling, particularly when the robot handles heavy objects or experiences significant external wrenches.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
       </div>
     </div>
   </div>
