@@ -299,124 +299,41 @@
     </div>
   </div>
 </section>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- 
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
-      <div class="column">
-        <h2 class="title is-3"> Main Contributions</h2>
-
-        <h3 class="title is-4">Unified Toolbox:</h3>
-        <ul>
-          <li>- Supports geometric calibration (e.g., joint offset identification) and dynamic identification (e.g., mass, inertia, friction).</li>
-          <li> - Works for robots and humans, including floating-base humanoids.</li>
-        </ul>
-
-        <h3 class="title is-4">Automated Excitation Data Generation:</h3>
-        <ul>
-          <li>Automatically generates Optimal Exciting Postures (OEP) and Optimal Exciting Motions (OEM) to ensure identifiability while reducing manual effort.</li>
-          <li>Uses optimization techniques to meet mechanical and safety constraints.</li>
-        </ul>
-
-        <h3 class="title is-4">Flexible and Modular Implementation:</h3>
-        <ul>
-          <li>Built on Pinocchio, a high-performance C++/Python library for rigid body dynamics.</li>
-          <li>Integrates multiple identification techniques (OLS, WLS, TLS, QCP, LM, etc.).</li>
-        </ul>
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Citations</h2>
+        <div class="content">
+          <p>If you use FIGAROH in your research, please cite the following papers:</p>
+          <h4>Main Reference</h4>
+          <pre><code>@inproceedings{nguyen2024improving,
+  title={Improving Operational Accuracy of a Mobile Manipulator by Modeling Geometric and Non-Geometric Parameters},
+  author={Nguyen, Thanh D. V. and Bonnet, V. and Fernbach, P. and Flayols, T. and Lamiraux, F.},
+  booktitle={2024 IEEE-RAS 23rd International Conference on Humanoid Robots (Humanoids)},
+  pages={965--972},
+  year={2024},
+  address={Nancy, France},
+  doi={10.1109/Humanoids58906.2024.10769790}
+}</code></pre>
+          
+          <h4>Related Work</h4>
+          <pre><code>@inproceedings{nguyen2023figaroh,
+            title={FIGAROH: a Python toolbox for dynamic identification and geometric calibration of robots and humans},
+            author={Nguyen, Dinh Vinh Thanh and Bonnet, Vincent and Maxime, Sabbah and Gautier, Maxime and Fernbach, Pierre and others},
+            booktitle={IEEE-RAS International Conference on Humanoid Robots},
+            pages={1--8},
+            year={2023},
+            address={Austin, TX, United States},
+            doi={10.1109/Humanoids57100.2023.10375232},
+            url={https://hal.science/hal-04234676v2}
+          }</code></pre>
+        </div>
       </div>
     </div>
-  </div>
-</section> -->
-
-<!-- <section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column">
-        <h2 class="title is-3"> Technical Overview</h2>
-        <h3 class="title is-4">Parameter Identification:</h3>
-        <ul>
-          <li>Handles Segment Inertial Parameters (SIP), joint frictions, motor dynamics, etc.</li>
-          <li>Uses a regressor-based approach with rank-reduction (Base Parameters) to avoid overfitting.</li>
-        </ul>
-        <h3 class="title is-4">Optimization Criteria for Excitation:</h3>
-        <ul>
-          <li>Includes common criteria (e.g., condition number, minimum singular value) to ensure regressor matrix quality.</li>
-        </ul>
-        <h3 class="title is-4">Data-Driven Approach:</h3>
-        <ul>
-          <li>Inputs: URDF model, sensor data (joint states, forces, poses), and environment description.</li>
-          <li>Outputs: Identified parameters, statistical metrics, updated URDF/XACRO model.</li>
-        </ul>
-      </div>
-    </div> -->
   </div>
 </section>
-
-<!-- <section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column">
-        <h2 class="title is-3"> Toolbox Workflow</h2>
-        <ul>
-          <li><strong>Configure project (YAML file):</strong> Specify calibration/identification parameters.</li>
-          <li><strong>Collect or auto-generate data:</strong> Pose/motion datasets are generated or imported.</li>
-          <li><strong>Model and Regressor Setup:</strong> Uses QR decomposition to identify base parameters.</li>
-          <li><strong>Run Estimation:</strong> Choose an LS method (e.g., WLS) for parameter estimation.</li>
-          <li><strong>Cross Validation:</strong> Validation experiment design.</li>
-          <li><strong>Analyze Results:</strong> Statitiscal evaluation.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-<!-- <section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column">
-        <h2 class="title is-3"> Experimental Use Cases</h2>
-        <h3 class="title is-4">Humans:</h3>
-        <ul>
-          <li>43-DoF human model calibrated using motion capture and force plates.</li>
-          <li>Shows improved accuracy over Anthropometric Tables (RMSE reduction).</li>
-        </ul>
-        <h3 class="title is-4">Floating-base Robots:</h3>
-        <ul>
-          <li>TIAGo and TALOS robots calibrated using motion capture or planar constraints.</li>
-          <li>RMSE dropped from ~15 mm (uncalibrated) to &lt;2 mm (calibrated).</li>
-        </ul>
-        <h3 class="title is-4">Serial Manipulators:</h3>
-        <ul>
-          <li><strong>Stäubli TX40:</strong> Dynamic identification reproduces published results.</li>
-          <li><strong>UR10:</strong> Eye-in-hand calibration via embedded camera; RMSE ~1.76 mm.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-<!-- <section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column">
-        <h2 class="title is-3"> Conclusions & Future Work</h2>
-        <p>
-          FIGAROH democratizes advanced calibration/identification processes.
-        </p>
-        <h3 class="title is-4">Future developments:</h3>
-        <ul>
-          <li>Kinodynamic identification (joint geometric + dynamic parameter estimation).</li>
-          <li>Nonlinear flexibility modeling for lightweight collaborative robots.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section> -->
 
 <footer class="footer">
   <div class="container">
