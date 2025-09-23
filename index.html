@@ -115,7 +115,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://github.com/thanhndv212" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://github.com/thanhndv212/figaroh-examples" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
@@ -138,7 +138,45 @@
         <div class="content has-text-justified">
           <p>
             This paper addresses two intrinsic phenomena encountered in mobile manipulator robots, but often neglected, with the objective of improving the overall accuracy of end-effector pose estimation. Firstly, after performing state-of-the-art geometric calibration of the arm, we propose two identifiable mathematical models to account for non-geometric effects: a model for the mobile base suspension system and a model of non-linear inaccuracies of joint angles estimates. The latter is due to backlash and misaligned encoders mounting. Then, the proposed models were experimentally validated on the mobile manipulator TIAGo using a stereophotogrammetric system. Overall, the end-effector pose accuracy was improved by 60% when compared to the nominal manufacturer model, with root mean square errors (RMSE) of 5.7mm and 2.7deg for positional and orientational errors, respectively.
+            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+              <img src="./static/images/frames_setup.png" alt="Experimental setup with motion capture and force plate" style="max-width:80%; height:auto; margin:10px 0;">
+            </div>
+            <em style="font-size: 0.9em; color: #666;">Figure 1: Experimental setup showing the TIAGo robot, motion capture system, and force plate.</em>
           </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Problem Statement</h2>
+        <div class="content has-text-justified">
+          <p>The agility and adaptability of mobile base collaborative robots make them invaluable in applications ranging from manufacturing to healthcare. However, their relatively light and often inexpensive construction compromises their operational accuracy, posing significant challenges for applications requiring precise positioning and manipulation.</p>
+
+          <h4>Sources of Inaccuracy in Mobile Manipulators</h4>
+          <p>Mobile manipulators suffer from positioning inaccuracies caused by multiple factors:</p>
+          <ul>
+            <li><strong>Lack of Geometric Calibration</strong>: Users often rely on manufacturer specifications without recalibration after extended use</li>
+            <li><strong>Joint Flexibility and Encoder Misalignment</strong>: Transmission flexibility and imperfect encoder mounting introduce measurement errors</li>
+            <li><strong>Gear Backlash</strong>: Clearance between mating gear teeth causes lost motion and positioning errors, especially as gears wear over time
+              <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                <img src="./static/images/shaft_encoder.png" alt="Shaft encoder and backlash illustration" style="max-width:60%; height:auto; margin:10px 0;">
+              </div>
+              <em style="font-size: 0.9em; color: #666;">Figure 2: Illustration of the drive chain including motor, shaft, and relative/absolute encoders with backlash phases</em></li>
+            <li><strong>Suspension Dynamics</strong>: Unknown base suspension behavior affects pose estimation during arm movements
+              <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                <img src="./static/images/base_spring.png" alt="Base suspension illustration" style="max-width:80%; height:auto; margin:10px 0;">
+              </div>
+              <em style="font-size: 0.9em; color: #666;">Figure 3: Illustration of caster and driving wheels inducing flexibilities at the base of the robot</em></li>
+          </ul>
+          <p>This paper addresses these neglected phenomena by developing comprehensive models for both geometric and non-geometric effects, validated through experimentation on the TIAGo mobile manipulator.</p>
+
+          
+          
         </div>
       </div>
     </div>
@@ -156,11 +194,65 @@
           <h4>1. Suspension Model for Mobile Base</h4>
           <p>Models each wheel as a linear and torsional spring-damper system to account for base flexibility during arm movements. The 6D spatial suspension model captures how external wrenches cause base displacement, affecting end-effector positioning accuracy.</p>
 
+          <p><strong>Mathematical Model:</strong></p>
+          <div style="background-color: #f8f9fa; padding: 20px; margin: 15px 0; border-left: 4px solid #007acc; border-radius: 5px;">
+            <div style="margin-bottom: 15px;">
+              <p style="margin-bottom: 5px;"><strong>Linear spring-damper force:</strong></p>
+              <div style="font-size: 1.1em; font-family: 'Times New Roman', serif; background: white; padding: 10px; border-radius: 3px; border: 1px solid #e0e0e0;">
+                <sup>0</sup>F<sub>i</sub> = K<sub>t<sub>i</sub></sub> · Δr<sub>i</sub> + C<sub>t<sub>i</sub></sub> · d(Δr<sub>i</sub>)/dt
+              </div>
+              <p style="font-size: 0.85em; color: #666; margin-top: 5px;">where K<sub>t<sub>i</sub></sub> is the linear stiffness matrix and C<sub>t<sub>i</sub></sub> is the linear damping matrix</p>
+            </div>
+
+            <div>
+              <p style="margin-bottom: 5px;"><strong>Torsional spring-damper moment:</strong></p>
+              <div style="font-size: 1.1em; font-family: 'Times New Roman', serif; background: white; padding: 10px; border-radius: 3px; border: 1px solid #e0e0e0;">
+                <sup>0</sup>M<sub>i</sub> = K<sub>θ<sub>i</sub></sub> · θ + C<sub>θ<sub>i</sub></sub> · dθ/dt + r<sub>i</sub> × <sup>0</sup>F<sub>i</sub>
+              </div>
+              <p style="font-size: 0.85em; color: #666; margin-top: 5px;">where K<sub>θ<sub>i</sub></sub> is the torsional stiffness matrix and C<sub>θ<sub>i</sub></sub> is the torsional damping matrix</p>
+            </div>
+          </div>
+
           <h4>2. Non-Geometric Joint Phenomena Model</h4>
           <p>Addresses backlash in mechanical transmissions, joint flexibility, and encoder mounting misalignments using a combination of sigmoid functions (for hysteresis behavior) and multivariate polynomials (for configuration-dependent effects).</p>
 
+          <p><strong>Hypothesized Model:</strong></p>
+          <div style="background-color: #f8f9fa; padding: 20px; margin: 15px 0; border-left: 4px solid #007acc; border-radius: 5px;">
+            <div style="margin-bottom: 15px;">
+              <p style="margin-bottom: 5px;"><strong>Joint position discrepancy model:</strong></p>
+              <div style="font-size: 1.1em; font-family: 'Times New Roman', serif; background: white; padding: 10px; border-radius: 3px; border: 1px solid #e0e0e0;">
+                Δθ̂<sub>LM<sub>k</sub></sub> = C<sub>r</sub>(θ<sub>M<sub>k</sub></sub>, τ<sub>k</sub>) · S(dθ<sub>M<sub>k</sub></sub>/dt) + C<sub>l</sub>(θ<sub>M<sub>k</sub></sub>, τ<sub>k</sub>) · (1 - S(dθ<sub>M<sub>k</sub></sub>/dt))
+              </div>
+              <p style="font-size: 0.85em; color: #666; margin-top: 5px;">where Δθ̂<sub>LM<sub>k</sub></sub> represents the discrepancy between motor-side and link-side encoder measurements</p>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+              <p style="margin-bottom: 5px;"><strong>Right-side polynomial (engaged teeth):</strong></p>
+              <div style="font-size: 1.1em; font-family: 'Times New Roman', serif; background: white; padding: 10px; border-radius: 3px; border: 1px solid #e0e0e0;">
+                C<sub>r</sub>(θ<sub>M<sub>k</sub></sub>, τ<sub>k</sub>) = ∑<sub>i=1</sub><sup>m</sup> ∑<sub>j=1</sub><sup>n</sup> A<sub>k<sub>ij</sub></sub> · θ<sub>M<sub>k</sub></sub><sup>i</sup> · τ<sub>k</sub><sup>j</sup>
+              </div>
+              <p style="font-size: 0.85em; color: #666; margin-top: 5px;">polynomial approximating backlash gap when teeth are engaged</p>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+              <p style="margin-bottom: 5px;"><strong>Left-side polynomial (disengaged teeth):</strong></p>
+              <div style="font-size: 1.1em; font-family: 'Times New Roman', serif; background: white; padding: 10px; border-radius: 3px; border: 1px solid #e0e0e0;">
+                C<sub>l</sub>(θ<sub>M<sub>k</sub></sub>, τ<sub>k</sub>) = ∑<sub>i=1</sub><sup>m</sup> ∑<sub>j=1</sub><sup>n</sup> B<sub>k<sub>ij</sub></sub> · θ<sub>M<sub>k</sub></sub><sup>i</sup> · τ<sub>k</sub><sup>j</sup>
+              </div>
+              <p style="font-size: 0.85em; color: #666; margin-top: 5px;">polynomial approximating backlash gap when teeth are disengaged</p>
+            </div>
+
+            <div>
+              <p style="margin-bottom: 5px;"><strong>Sigmoid activation function:</strong></p>
+              <div style="font-size: 1.1em; font-family: 'Times New Roman', serif; background: white; padding: 10px; border-radius: 3px; border: 1px solid #e0e0e0;">
+                S(dθ<sub>M<sub>k</sub></sub>/dt) = 1 / (1 + e<sup>(-ρ · dθ<sub>M<sub>k</sub></sub>/dt)</sup>)
+              </div>
+              <p style="font-size: 0.85em; color: #666; margin-top: 5px;">smooth hysteresis function activated by direction changes, where ρ is the sigmoid gain</p>
+            </div>
+          </div>
+
           <h4>3. Integrated Framework with Geometric Calibration</h4>
-          <p>Combines the proposed models with state-of-the-art geometric calibration using the FIGAROH toolbox, providing a comprehensive approach to mobile manipulator accuracy improvement.</p>
+          <p>Combines the proposed models with state-of-the-art geometric calibration using the <a href="https://thanhndv212.github.io/figaroh-plus-webpage/" target="_blank" style="color: #007acc; text-decoration: underline;">FIGAROH toolbox</a>, providing a comprehensive approach to mobile manipulator accuracy improvement.</p>
         </div>
       </div>
     </div>
@@ -181,6 +273,12 @@
             <li><strong>Model 2</strong>: Model 1 + geometric calibration</li>
             <li><strong>Model 3</strong>: Model 2 + non-geometric joint phenomena compensation</li>
           </ul>
+          <div style="text-align: center; margin: 20px 0;">
+            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+              <img src="./static/images/study_overview.png" alt="Overview of the models proposed for improving mobile manipulator accuracy" style="max-width:90%; height:auto;">
+            </div>
+            <p style="font-size: 0.9em; color: #666; margin-top: 10px;"><em>Figure 4: Overview of the models proposed for improving mobile manipulator accuracy</em></p>
+          </div>
 
           <h4>Accuracy Improvements</h4>
           <p>The integrated approach achieved significant improvements in end-effector pose estimation:</p>
@@ -189,7 +287,12 @@
             <li><strong>Position Accuracy</strong>: RMSE reduced from 13.3mm to 5.7mm (57% improvement)</li>
             <li><strong>Orientation Accuracy</strong>: RMSE reduced from 8.57° to 2.71° (68% improvement)</li>
           </ul>
-
+          <div style="text-align: center; margin: 20px 0;"></div>
+            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+              <img src="./static/images/fin_compare_error_bymodels_boxplot.png" alt="Boxplot comparing end-effector errors by model" style="max-width:90%; height:auto;">
+            </div>
+            <p style="font-size: 0.9em; color: #666; margin-top: 10px;"><em>Figure 5: Boxplot comparing end-effector position and orientation errors for each model.</em></p>
+          </div>
           <p>These results demonstrate the importance of accounting for both geometric and non-geometric phenomena in mobile manipulator modeling, particularly when the robot handles heavy objects or experiences significant external wrenches.</p>
         </div>
       </div>
